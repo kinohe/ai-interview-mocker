@@ -1,11 +1,12 @@
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
+import Header from "./header/page";
+import Dashboard from "./dashboard/page";
 
 export default function Home() {
   return (
     <>
-      <h1>lets start</h1>
-      <Button>Go</Button>
+      <Header />
     </>
   );
 }
