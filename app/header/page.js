@@ -4,17 +4,9 @@ import React, { Fragment } from "react";
 // import Image from "next/image";
 function Header() {
   return (
-    <div className=" bg-gray-100 p-7">
+    <div className=" bg-gray-100 p-7 ">
       <nav className=" hidden sm:hidden md:block lg:block ">
         <ul className="flex items-center justify-center flex-wrap">
-          {/* <li className="">
-            <Image
-              src="../../public/logos.svg"
-              alt="Logos Ipsum Logo"
-              width={50}
-              height={50}
-            />
-          </li> */}
           <li className="-mb-px mr-7 ">
             <Link
               className="text-black hover:text-blue-700 hover:font-bold text-small"
@@ -47,9 +39,12 @@ function Header() {
               How it works?
             </Link>
           </li>
+
+          <li>
+            <UserButton />
+          </li>
         </ul>
       </nav>
-      <UserButton />
     </div>
   );
 }
