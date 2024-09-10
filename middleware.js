@@ -4,6 +4,7 @@ const isProtectedRoute = createRouteMatcher(["/dashboard(.*)", "/forum(.*)"]);
 export default clerkMiddleware((auth, req) => {
   if (isProtectedRoute(req)) auth().protect();
 });
+
 export const config = {
   matcher: [
     // Skip Next.js internals and all static files, unless found in search params
