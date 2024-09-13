@@ -19,6 +19,7 @@ import { MockInterview } from "@/util/schema";
 import { v4 as uuidv4 } from "uuid";
 import { useUser } from "@clerk/nextjs";
 import moment from "moment/moment";
+import { useRouter } from "next/navigation";
 
 function AddNewInterview() {
   const [openDialog, setOpenDialog] = useState(false);
@@ -28,6 +29,7 @@ function AddNewInterview() {
   const [loading, setLoading] = useState(false);
   const [jsonResponse, setJsonResponse] = useState([]);
 
+  const router = useRouter();
   const { user } = useUser();
 
   const onSubmit = async (e) => {
@@ -39,27 +41,31 @@ function AddNewInterview() {
     const result = await chatSession.sendMessage(inputPrompt);
     const MockJsonResp = result.response
       .text()
-      .replace("```json", "")
-      .replace("```", "");
+      .replace(/```json/g, "")
+      .replace(/```/g, "");
+
     console.log(JSON.parse(MockJsonResp));
 
     setJsonResponse(MockJsonResp);
     if (MockJsonResp) {
-      const resp = db
+      const resp = await db
         .insert(MockInterview)
         .values({
           mockId: uuidv4(),
           jsonMockResp: MockJsonResp,
+          jobPosition: jobPosition,
           jobDesc: jobDescription,
           jobExperience: jobExperience,
-          jobPosition: jobPosition,
           createdBy: user?.primaryEmailAddress?.emailAddress,
           createdAt: moment().format("DD-MM-YYYY"),
         })
         .returning({ mockId: MockInterview.mockId });
+
       console.log("InsertedId :", resp);
-    } else {
-      console.log(Error);
+      if (resp) {
+        setOpenDialog(false);
+        router.push("/dashboard/interview/" + resp[0]?.mockId);
+      }
     }
     setLoading(false);
   };
