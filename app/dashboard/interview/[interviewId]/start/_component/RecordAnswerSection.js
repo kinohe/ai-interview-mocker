@@ -66,7 +66,7 @@ function RecordAnswerSection(
       mockIdRef: interviewData?.mockId,
       question: mockInterviewQuestion[activeQuestionIndex]?.question,
       correctAns: mockInterviewQuestion[activeQuestionIndex]?.answer,
-      UserAnswer: userAnswer,
+      userAnswer: userAnswer,
       feedback: jsonFeedbackResp?.feedback,
       rating: jsonFeedbackResp?.rating,
       userEmail: user?.primaryEmailAddress.emailAddress,
