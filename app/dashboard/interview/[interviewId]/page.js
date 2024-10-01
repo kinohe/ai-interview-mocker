@@ -13,9 +13,9 @@ function Interview({ params }) {
   const [webCamEnabled, setWebCamEnabled] = useState(false);
 
   useEffect(() => {
-    console.log(params.interviewId);
+    // console.log(params.interviewId);
     getInterviewDetails();
-  }, []);
+  }, [params.interviewId]);
   const getInterviewDetails = async () => {
     const result = await db
       .select()

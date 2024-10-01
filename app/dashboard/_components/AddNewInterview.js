@@ -44,7 +44,7 @@ function AddNewInterview() {
       .replace(/```json/g, "")
       .replace(/```/g, "");
 
-    console.log(JSON.parse(MockJsonResp));
+    JSON.parse(MockJsonResp);
 
     setJsonResponse(MockJsonResp);
     if (MockJsonResp) {
@@ -131,7 +131,7 @@ function AddNewInterview() {
                   >
                     Cancel
                   </Button>
-                  <Button type="submit" disable={loading}>
+                  <Button type="submit" disabled={loading}>
                     {loading ? (
                       <>
                         {" "}
