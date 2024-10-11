@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import React from "react";
 
 function InterviewItemCard({ interview }) {
@@ -18,18 +18,22 @@ function InterviewItemCard({ interview }) {
         {interview?.jobExperience}Years of experience
       </h2>
       <h2 className="text-xs text-gray-300">
-        Created at:{interview.createdAt}{" "}
+        Created at:{new Date(interview?.createdAt).toLocaleDateString()}{" "}
       </h2>
       <div className="flex justify-between mt-2 gap-5">
         <Button
           variant="outline"
           size="sm"
-          className="w-full"
+          className="w-full "
           onClick={onFeedback}
         >
           Feedback
         </Button>
-        <Button size="sm" className="w-full" onClick={onStart}>
+        <Button
+          size="sm"
+          className="w-full  bg-blue-600 hover:bg-blue-700"
+          onClick={onStart}
+        >
           Start
         </Button>
       </div>

@@ -1,11 +1,12 @@
 import { UserButton } from "@clerk/nextjs";
+import { Brain } from "lucide-react";
 import Link from "next/link";
 import React, { Fragment } from "react";
-// import Image from "next/image";
+
 function Header() {
   return (
-    <div className=" bg-gray-100 p-7 ">
-      <nav className=" hidden sm:hidden md:block lg:block ">
+    <div>
+      {/* <nav className=" hidden sm:hidden md:block lg:block ">
         <ul className="flex items-center justify-center flex-wrap">
           <li className="-mb-px mr-7 ">
             <Link
@@ -40,11 +41,43 @@ function Header() {
             </Link>
           </li>
 
-          <li>
-            <UserButton />
-          </li>
         </ul>
-      </nav>
+      </nav> */}
+      <header className="px-4 lg:px-6 h-14 flex items-center mt-3">
+        <Link className="flex items-center justify-center" href="/">
+          <Brain className="h-6 w-6 mr-2" />
+          <span className="font-bold">AI Mock Interviewer</span>
+        </Link>
+        <nav className="ml-48 flex gap-4 sm:gap-6 justify-center items-center ">
+          <Link
+            className="text-base font-medium hover:text-blue-700 hover:font-bold"
+            href="/dashboard"
+          >
+            Dashboard
+          </Link>
+          <Link
+            className="text-base font-medium hover:text-blue-700 hover:font-bold"
+            href="/questions"
+          >
+            Questions
+          </Link>
+          <Link
+            className="text-base font-medium hover:text-blue-700 hover:font-bold"
+            href="/upgrade"
+          >
+            Upgrade
+          </Link>
+          <Link
+            className="text-base font-medium hover:text-blue-700 hover:font-bold"
+            href="/how-it-works"
+          >
+            How It Works
+          </Link>
+        </nav>
+        <li className="ml-auto">
+          <UserButton />
+        </li>
+      </header>
     </div>
   );
 }

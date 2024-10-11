@@ -36,7 +36,7 @@ function AddNewInterview() {
     setLoading(true);
     e.preventDefault();
 
-    const inputPrompt = `JobPosition:${jobPosition} jobDescription: ${jobDescription}, years of experience: ${process.env.NEXT_PUBLIC_INTERVIEW_QUESTION_COUNT} depending on this information please give me 5 interview questions with answer format of json give question and answer in json format`;
+    const inputPrompt = `JobPosition:${jobPosition} jobDescription: ${jobDescription}, questionsCount: ${process.env.NEXT_PUBLIC_INTERVIEW_QUESTION_COUNT} depending on this information please give me 5 interview questions with answer format of json give question and answer in json format`;
 
     const result = await chatSession.sendMessage(inputPrompt);
     const MockJsonResp = result.response
@@ -80,7 +80,7 @@ function AddNewInterview() {
       >
         <h2 className="font-bold text-lg text-center ">+Add New</h2>
       </div>
-      <Dialog open={openDialog}>
+      <Dialog open={openDialog} onOpenChange={setOpenDialog}>
         <DialogContent className="max-w-2xl">
           <DialogHeader>
             <DialogTitle className="text-2xl">
@@ -108,6 +108,7 @@ function AddNewInterview() {
                       onChange={(e) => {
                         setJobDescription(e.target.value);
                       }}
+                      required
                       placeholder="Ex. React, Angular, NodeJs, SQL etc..."
                     />
                   </div>
@@ -117,6 +118,7 @@ function AddNewInterview() {
                       onChange={(e) => {
                         setJobExperience(e.target.value);
                       }}
+                      required
                       placeholder="5"
                       max="50"
                       type="number"

@@ -6,15 +6,18 @@ import { Button } from "@/components/ui/button";
 import useSpeechToText from "react-hook-speech-to-text";
 import { Mic } from "lucide-react";
 import { is } from "drizzle-orm";
+import { UserAnswer } from "@/util/schema";
+import moment from "moment";
 import { toast } from "sonner";
 import { chatSession } from "@/util/GeminiApi";
 import { useUser } from "@clerk/nextjs";
+import { db } from "@/util/db";
 
-function RecordAnswerSection(
+function RecordAnswerSection({
   mockInterviewQuestion,
   interviewData,
-  activeQuestionIndex
-) {
+  activeQuestionIndex,
+}) {
   const [userAnswer, setUserAnswer] = useState("");
   const [loading, setLoading] = useState(false);
   const { user } = useUser();
@@ -32,7 +35,7 @@ function RecordAnswerSection(
   });
 
   useEffect(() => {
-    results.map((result) => {
+    results?.map((result) => {
       setUserAnswer((prevAns) => prevAns + result?.transcript);
     });
   }, [results]);
@@ -55,21 +58,20 @@ function RecordAnswerSection(
       "in just three to five lines to improve it in JSON format with rating field and feedback field ";
 
     const result = await chatSession.sendMessage(feedbackPrompt);
-    const mockJsonResponse = result.response
-      .text()
+    const mockJsonResponse = (await result.response.text())
       .replace(/```json/g, "")
       .replace(/```/g, "");
-
+    console.log(mockJsonResponse);
     const jsonFeedbackResp = JSON.parse(mockJsonResponse);
 
-    const resp = db.insert(userAnswer).values({
+    const resp = await db.insert(UserAnswer).values({
       mockIdRef: interviewData?.mockId,
       question: mockInterviewQuestion[activeQuestionIndex]?.question,
       correctAns: mockInterviewQuestion[activeQuestionIndex]?.answer,
-      userAnswer: userAnswer,
+      userAns: userAnswer,
       feedback: jsonFeedbackResp?.feedback,
       rating: jsonFeedbackResp?.rating,
-      userEmail: user?.primaryEmailAddress.emailAddress,
+      userEmail: user?.primaryEmailAddress?.emailAddress,
       createdAt: moment().format("MM-DD-YYYY"),
     });
 
@@ -78,7 +80,6 @@ function RecordAnswerSection(
       setUserAnswer("");
       setResults([]);
     }
-    setResults("");
     setLoading(false);
   };
 
@@ -97,6 +98,7 @@ function RecordAnswerSection(
           width="150"
           height="150"
           className="absolute"
+          alt="mic"
         />
         <Webcam
           mirrored={true}

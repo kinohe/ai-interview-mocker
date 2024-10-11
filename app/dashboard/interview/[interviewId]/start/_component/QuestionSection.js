@@ -1,5 +1,4 @@
 import { LightbulbIcon, Volume2 } from "lucide-react";
-import React from "react";
 
 function QuestionSection({ mockInterviewQuestion, activeQuestionIndex }) {
   const textToSpeech = (text) => {
@@ -18,7 +17,7 @@ function QuestionSection({ mockInterviewQuestion, activeQuestionIndex }) {
             mockInterviewQuestion.map((question, index) => (
               <h2
                 key={index}
-                className={`p-1 bg-gray-100 rounded-full text-lg md:text-sm text-center cursor-pointer ${
+                className={`py-2 bg-gray-100 rounded-full text-base md:text-sm text-center cursor-pointer ${
                   activeQuestionIndex === index && "bg-blue-700 text-white"
                 }`}
               >

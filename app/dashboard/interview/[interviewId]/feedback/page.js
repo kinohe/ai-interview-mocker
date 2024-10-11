@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import { db } from "@/util/db";
 import { eq } from "drizzle-orm";
 import { UserAnswer } from "@/util/schema";
-
 import {
   Collapsible,
   CollapsibleContent,
@@ -15,10 +14,10 @@ import { Button } from "@/components/ui/button";
 
 function Feedback({ params }) {
   const [feedbackList, setFeedbackList] = useState([]);
-  const router = useRouter;
+  const router = useRouter();
   useEffect(() => {
     GetFeedback();
-  }, []);
+  }, [params?.interviewId]);
   const GetFeedback = async () => {
     const result = await db
       .select()
@@ -29,7 +28,7 @@ function Feedback({ params }) {
   };
   return (
     <div className="p-10">
-      {feedbackList?.length === 0 ? (
+      {feedbackList.length === 0 ? (
         <h2 className="text-xl font-bold text-gray-500">
           No interview record found
         </h2>
@@ -60,7 +59,7 @@ function Feedback({ params }) {
                     </h2>
                     <h2 className="p-2 bg-red-50 text-sm rounded-lg text-red-500">
                       <strong>Your Answer:</strong>
-                      {item.userAnswer}
+                      {item.userAns}
                     </h2>
                     <h2 className="p-2 bg-green-50 text-sm rounded-lg text-green-500">
                       <strong>Correct Answer:</strong>

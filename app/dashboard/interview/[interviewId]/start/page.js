@@ -14,7 +14,7 @@ function StartInterview({ params }) {
   const [activeQuestionIndex, setActiveQuestionIndex] = useState(0);
   useEffect(() => {
     getInterviewDetails();
-  }, []);
+  }, [params.interviewId]);
   const getInterviewDetails = async () => {
     const result = await db
       .select()
@@ -40,16 +40,18 @@ function StartInterview({ params }) {
           interviewData={interviewData}
         />
       </div>
-      <div className="flex justify-end gap-6">
+      <div className="flex justify-end gap-6 mb-40">
         {activeQuestionIndex > 0 && (
           <Button
             onClick={() => setActiveQuestionIndex(activeQuestionIndex - 1)}
+            className=" bg-blue-600 hover:bg-blue-700"
           >
             Previous Question
           </Button>
         )}
         {activeQuestionIndex != mockInterviewQuestion?.length - 1 && (
           <Button
+            className=" bg-blue-600 hover:bg-blue-700"
             onClick={() => setActiveQuestionIndex(activeQuestionIndex + 1)}
           >
             Next Question
@@ -59,7 +61,9 @@ function StartInterview({ params }) {
           <Link
             href={"/dashboard/interview/" + interviewData?.mockId + "/feedback"}
           >
-            <Button>End Interview</Button>
+            <Button className=" bg-blue-600 hover:bg-blue-700">
+              End Interview
+            </Button>
           </Link>
         )}
       </div>
