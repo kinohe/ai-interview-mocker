@@ -33,7 +33,7 @@ export default function Home() {
             </Link>
             <Link
               className="text-base font-medium hover:text-blue-700 hover:font-bold"
-              href="/how-it-works"
+              href="/dashboard/how"
             >
               How It Works
             </Link>

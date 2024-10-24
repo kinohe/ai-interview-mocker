@@ -36,7 +36,13 @@ function AddNewInterview() {
     setLoading(true);
     e.preventDefault();
 
-    const inputPrompt = `JobPosition:${jobPosition} jobDescription: ${jobDescription}, questionsCount: ${process.env.NEXT_PUBLIC_INTERVIEW_QUESTION_COUNT} depending on this information please give me 5 interview questions with answer format of json give question and answer in json format`;
+    const inputPrompt = `JobPosition: ${jobPosition}, 
+JobDescription: ${jobDescription}, 
+QuestionsCount: ${process.env.NEXT_PUBLIC_INTERVIEW_QUESTION_COUNT}
+
+Based on the provided job position and description, please generate a list of 5 interview questions along with their answers. The output should be in JSON format`;
+
+    // `JobPosition:${jobPosition} jobDescription: ${jobDescription}, questionsCount: ${process.env.NEXT_PUBLIC_INTERVIEW_QUESTION_COUNT} depending on this information please give me 5 interview questions with answer format of json give question and answer in json format`;
 
     const result = await chatSession.sendMessage(inputPrompt);
     const MockJsonResp = result.response
@@ -133,7 +139,11 @@ function AddNewInterview() {
                   >
                     Cancel
                   </Button>
-                  <Button type="submit" disabled={loading}>
+                  <Button
+                    className="bg-blue-700"
+                    type="submit"
+                    disabled={loading}
+                  >
                     {loading ? (
                       <>
                         {" "}

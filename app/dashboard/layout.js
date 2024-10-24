@@ -1,4 +1,6 @@
 import Header from "../header/page";
+import Head from "next/head";
+
 function DashboardLayout({ children }) {
   return (
     <div>
